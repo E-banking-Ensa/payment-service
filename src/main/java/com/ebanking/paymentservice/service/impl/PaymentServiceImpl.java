@@ -3,6 +3,7 @@ package com.ebanking.paymentservice.service.impl;
 import com.ebanking.paymentservice.client.AccountServiceClient;
 import com.ebanking.paymentservice.client.LegacyAdapterClient;
 import com.ebanking.paymentservice.client.dto.*;
+import com.ebanking.paymentservice.client.dto.BalanceUpdateRequest;
 import com.ebanking.paymentservice.dto.request.MobileRechargeRequest;
 import com.ebanking.paymentservice.dto.request.VirementRequest;
 import com.ebanking.paymentservice.dto.response.MobileRechargeResponse;
@@ -97,6 +98,19 @@ public class PaymentServiceImpl implements PaymentService {
                 payment.setStatus(PaymentStatus.SUCCESS);
                 payment = paymentRepository.save(payment);
                 
+                // 6b. Mettre à jour les soldes dans Account Service
+                try {
+                    log.info("Mise à jour des soldes dans Account Service");
+                    // Débit compte source
+                    accountServiceClient.updateBalance(new BalanceUpdateRequest(request.getRibSource(), -request.getAmount()));
+                    // Crédit compte destination
+                    accountServiceClient.updateBalance(new BalanceUpdateRequest(request.getRibDestination(), request.getAmount()));
+                } catch (Exception e) {
+                    log.error("Erreur lors de la mise à jour des soldes (Transaction réussie mais soldes non mis à jour): {}", e.getMessage());
+                    // On ne fail pas la transaction car l'argent a "bougé" côté Legacy/SOAP (simulé)
+                    // Dans un vrai système distribué, il faudrait une saga ou un mécanisme de compensation
+                }
+
                 log.info("Virement réussi - ID: {}, Transaction: {}", 
                          payment.getId(), soapResponse.getTransactionId());
                 
@@ -183,6 +197,14 @@ public class PaymentServiceImpl implements PaymentService {
                 // 5. Mettre à jour le statut
                 payment.setStatus(PaymentStatus.SUCCESS);
                 payment = paymentRepository.save(payment);
+                
+                // 5b. Mettre à jour le solde dans Account Service
+                try {
+                    log.info("Mise à jour du solde pour recharge mobile");
+                    accountServiceClient.updateBalance(new BalanceUpdateRequest(request.getRib(), -request.getAmount()));
+                } catch (Exception e) {
+                    log.error("Erreur lors de la mise à jour du solde (Recharge réussie mais solde non débité): {}", e.getMessage());
+                }
                 
                 log.info("Recharge réussie - ID: {}, Recharge ID: {}", 
                          payment.getId(), soapResponse.getRechargeId());

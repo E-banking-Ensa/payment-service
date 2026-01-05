@@ -1,5 +1,6 @@
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\client\AccountServiceClient.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\client\dto\AccountDTO.java
+C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\client\dto\BalanceUpdateRequest.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\client\dto\RechargeSoapRequest.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\client\dto\RechargeSoapResponse.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\client\dto\VirementSoapRequest.java
@@ -14,6 +15,7 @@ C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\entity\PaymentStatus.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\entity\PaymentType.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\exception\AccountNotFoundException.java
+C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\exception\GlobalExceptionHandler.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\exception\InsufficientBalanceException.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\exception\PaymentException.java
 C:\Users\hamza\Ebanck\payment-service\src\main\java\com\ebanking\paymentservice\PaymentServiceApplication.java

@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "legacy-adapter-service", path = "/api/legacy")
+@FeignClient(name = "legacy-adapter-service", path = "/api/v1/legacy")
 public interface LegacyAdapterClient {
     
     @PostMapping("/virement")

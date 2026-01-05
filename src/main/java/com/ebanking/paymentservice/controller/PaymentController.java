@@ -27,12 +27,7 @@ public class PaymentController {
         
         log.info("Requête de virement reçue: {}", request);
         VirementResponse response = paymentService.executeVirement(request);
-        
-        HttpStatus status = "SUCCESS".equals(response.getStatus()) 
-                          ? HttpStatus.OK 
-                          : HttpStatus.BAD_REQUEST;
-        
-        return ResponseEntity.status(status).body(response);
+        return ResponseEntity.ok(response);
     }
     
     @PostMapping("/recharge")
@@ -41,12 +36,7 @@ public class PaymentController {
         
         log.info("Requête de recharge mobile reçue: {}", request);
         MobileRechargeResponse response = paymentService.executeMobileRecharge(request);
-        
-        HttpStatus status = "SUCCESS".equals(response.getStatus()) 
-                          ? HttpStatus.OK 
-                          : HttpStatus.BAD_REQUEST;
-        
-        return ResponseEntity.status(status).body(response);
+        return ResponseEntity.ok(response);
     }
     
     @GetMapping("/health")
